@@ -1,5 +1,11 @@
 package task_1_preconditions;
 
+import com.google.common.collect.Lists;
+
+import java.util.Iterator;
+
+import static com.google.common.base.Preconditions.*;
+
 /**
  * Created by Jaszczynski.Rafal on 17.05.2018.
  */
@@ -24,6 +30,30 @@ public class PreconditionsExample {
     */
 
   public static void main(String[] args) {
+    boolean equals = "a".equals("b");
 
+    checkArgument(equals);
+    //IllegalArgumentException
+
+    //just for clean code, the same as checkArgument, but for checking state of some object
+    Iterator<Object> iterator = Lists.newArrayList().iterator();
+    checkState(iterator.hasNext());
+    //IllegalStateException
+
+    checkNotNull(null);
+    //NullPointerException
+
+    //exclusive
+    int[] ints = {1, 2, 3, 4};
+    int i = checkElementIndex(4, ints.length);
+    //IndexOutOfBoundsException
+
+    //inclusive
+    int i1 = checkPositionIndex(4, ints.length);
+    //2
+
+    //exclusive
+    checkPositionIndexes(0, 4, ints.length);
+    //IndexOutOfBoundsException
   }
 }
